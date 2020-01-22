@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './../app.state';
-import { TodoItem } from '../store/models/todolist.model'
-import * as TodolistActions from '../store/actions/todolist.actions';
+import { PizzaItem } from '../store/models/pizzas.model'
+import * as PizzalistActions from '../store/actions/pizzalist.actions';
 
 @Component({
   selector: 'app-create',
@@ -17,7 +17,7 @@ export class CreateComponent implements OnInit {
   }
 
   addTodo(title, description) {
-    this.store.dispatch(new TodolistActions.AddTodoItem({ title: title, description: description }));
+    this.store.dispatch(new PizzalistActions.AddPizza({ name: title, description: description, price: 1.0 }));
   }
 
 }

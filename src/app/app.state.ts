@@ -1,5 +1,6 @@
-import { TodoItem } from './store/models/todolist.model'
+import { PizzaItem } from './store/models/pizzas.model'
 
 export interface AppState {
-    readonly todolist: TodoItem[]
+    readonly pizzalist: PizzaItem[]
+    readonly pizzacollection: PizzaItem[]
 }
