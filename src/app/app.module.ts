@@ -22,7 +22,7 @@ import { AppState } from './app.state';
 const reducers: ActionReducerMap<AppState> = { pizzalist: pizzaReducer, pizzacollection: pizzaCollectionReducer }
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
-  return localStorageSync({ keys: ['pizzacollection', 'pizzalist'], rehydrate: true })(reducer);
+  return localStorageSync({ keys: ['pizzacollection'], rehydrate: true })(reducer);
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 

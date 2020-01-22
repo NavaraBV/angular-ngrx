@@ -49,8 +49,10 @@ export class ListComponent implements OnInit {
     this.store.dispatch(new AddPizza(pizza));
   }
 
-  isInCollection(pizza)
-  {
-    return this.pizzaCollection.indexOf(pizza) >= 0;
+  isInCollection(pizza: PizzaItem) {
+    return this.pizzaCollection.find(
+      p => p.name == pizza.name &&
+      p.description == pizza.description &&
+      p.price == pizza.price);
   }
 }
