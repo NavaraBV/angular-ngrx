@@ -8,9 +8,15 @@ export class PizzasService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(page, limit = 20) {
+  getAll(page, limit) {
     return this.http.get(
       `http://5e2836e5120f820014bf422a.mockapi.io/api/pizza?page=${page}&limit=${limit}`
+    );
+  }
+
+  getAllFiltered(page, limit, filter) {
+    return this.http.get(
+      `http://5e2836e5120f820014bf422a.mockapi.io/api/pizza?page=${page}&limit=${limit}&search=${filter}`
     );
   }
 

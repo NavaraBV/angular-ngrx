@@ -8,7 +8,9 @@ export enum ActionTypes {
     UpdateLikeSucess = '[PIZZA] Updated likes on server',
     RemoveLike = '[PIZZA] Removed like',
     LoadItems = '[PIZZAS] Load pizzas from server',
-    LoadSuccess = '[PIZZAS] Load success'
+    LoadSuccess = '[PIZZAS] Load success',
+    Filter = '[PIZZAS] Filter pizzas',
+    FilterSuccess = '[PIZZAS] Filter success'
 }
 
 export class AddToPizzaCollection implements Action {
@@ -53,6 +55,16 @@ export class LoadPizzasSuccess implements Action {
     constructor(public payload: PizzaItem[]) { }
 }
 
+export class FilterPizzas implements Action {
+    readonly type = ActionTypes.Filter;
 
+    constructor(public payload: { page: number, limit: number, filter: string }) { }
+}
 
-export type Actions = AddToPizzaCollection | RemoveFromPizzaCollection | AddLike | UpdateLikeSuccess | RemoveLike | LoadPizzas | LoadPizzasSuccess;
+export class FilterPizzasSuccess implements Action {
+    readonly type = ActionTypes.FilterSuccess;
+
+    constructor(public payload: PizzaItem[]) { console.log("Filtered"); }
+}
+
+export type Actions = AddToPizzaCollection | RemoveFromPizzaCollection | AddLike | UpdateLikeSuccess | RemoveLike | LoadPizzas | LoadPizzasSuccess | FilterPizzas | FilterPizzasSuccess;

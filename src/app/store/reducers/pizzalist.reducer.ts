@@ -16,6 +16,8 @@ export function pizzaReducer(state: PizzaItem[] = [], action: PizzalistActions.A
             return state;
         case PizzalistActions.ActionTypes.LoadSuccess:
             return [...state, ...action.payload];
+        case PizzalistActions.ActionTypes.FilterSuccess:
+            return action.payload;
         default:
             return state;
     }

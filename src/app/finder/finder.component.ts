@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PizzaItem } from '../store/models/pizzas.model';
-import { LoadPizzas, AddToPizzaCollection } from '../store/actions/pizzalist.actions'
+import { LoadPizzas, AddToPizzaCollection, FilterPizzas } from '../store/actions/pizzalist.actions'
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -44,16 +44,7 @@ export class FinderComponent implements OnInit {
   }
 
   onFilterChange(filter) {
-    this.store.pipe(
-      select(filterPizzas, { filter: filter })
-    )
-    .subscribe(
-      data => this.pizzaList = data
-    )
-  }
-
-  filterResults(filter: string) {
-
+    this.store.dispatch(new FilterPizzas({ page: this.page, limit: this.limit, filter: filter }));
   }
 
   get canLoadMore(): boolean {

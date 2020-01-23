@@ -16,12 +16,25 @@ export class PizzaListEffects {
     ) { }
 
     @Effect()
-    loadProducts = this.actions.pipe(
+    loadPizzas = this.actions.pipe(
         ofType(PizzalistActions.ActionTypes.LoadItems),
         mergeMap(({ payload: { page, limit } }) =>
             this.pizzaService.getAll(page, limit).pipe(
-                map(products => {
-                    return { type: PizzalistActions.ActionTypes.LoadSuccess, payload: products };
+                map(data => {
+                    return { type: PizzalistActions.ActionTypes.LoadSuccess, payload: data };
+                }),
+                catchError(() => EMPTY)
+            )
+        )
+    );
+
+    @Effect()
+    filterPizzas = this.actions.pipe(
+        ofType(PizzalistActions.ActionTypes.Filter),
+        mergeMap(({ payload: { page, limit, filter } }) =>
+            this.pizzaService.getAllFiltered(page, limit, filter).pipe(
+                map(data => {
+                    return { type: PizzalistActions.ActionTypes.FilterSuccess, payload: data };
                 }),
                 catchError(() => EMPTY)
             )
