@@ -9,3 +9,7 @@
 .sidenav {
     min-width: 200pt;
 }
+
+.active-link, .active-link:hover, .active-link:active, .active-link:focus {
+    background-color: #3f51b556;
+}

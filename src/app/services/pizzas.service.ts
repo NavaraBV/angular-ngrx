@@ -13,4 +13,13 @@ export class PizzasService {
       `http://5e2836e5120f820014bf422a.mockapi.io/api/pizza?page=${page}&limit=${limit}`
     );
   }
+
+  putLike(id, likes) {
+    return this.http.put(
+      `http://5e2836e5120f820014bf422a.mockapi.io/api/pizza/${id}`,
+      {
+        "likes": likes
+      }
+    );
+  }
 }

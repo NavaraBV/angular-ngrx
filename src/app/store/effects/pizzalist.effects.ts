@@ -16,7 +16,7 @@ export class PizzaListEffects {
     ) { }
 
     @Effect()
-    loadProducts$ = this.actions.pipe(
+    loadProducts = this.actions.pipe(
         ofType(PizzalistActions.ActionTypes.LoadItems),
         mergeMap(({ payload: { page, limit } }) =>
             this.pizzaService.getAll(page, limit).pipe(
@@ -27,4 +27,19 @@ export class PizzaListEffects {
             )
         )
     );
+
+    @Effect()
+    addLike = this.actions.pipe(
+        ofType<PizzalistActions.AddLike | PizzalistActions.RemoveLike>(PizzalistActions.ActionTypes.AddLike, PizzalistActions.ActionTypes.RemoveLike),
+        map(action => {
+            this.pizzaService.putLike(action.payload.id, action.payload.likes).pipe(
+                map(products => {
+                    return new PizzalistActions.UpdateLikeSuccess(action.payload);
+                }),
+                catchError(() => EMPTY)
+            ).subscribe()
+
+            return new PizzalistActions.UpdateLikeSuccess(action.payload);
+        })
+    )
 }

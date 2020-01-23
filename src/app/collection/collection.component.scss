@@ -1,20 +1,7 @@
-.pizza-list {
-    flex: none;
-}
-
-.pizza-search {
+.collection-header {
     background-color: white;
     text-align: center;
     margin-bottom: 20pt;
     padding: 20pt;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-
-.pizza-item {
-    margin: 10pt 0;
-    flex: none;
-}
-
-.pizza-description {
-    height: 50pt;
 }

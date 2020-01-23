@@ -1,0 +1,17 @@
+<div class="pizza-search">
+    <mat-card-title class="mat-card-title">
+        Find your pizzas
+    </mat-card-title>
+
+    <mat-form-field class="example-full-width">
+        <input matInput #filter placeholder="Favorite pizza" value="" (input)="onFilterChange(filter.value)">
+    </mat-form-field>
+</div>
+
+<div class="container text-center">
+    <section class="pizza-area" infinite-scroll (scrolled)="loadMore()">
+        <app-pizzalist [pizzaList]="pizzaList"></app-pizzalist>
+    </section>
+
+    <button mat-raised-button class="my-4" (click)="loadMore()" [disabled]="!canLoadMore">Load More</button>
+</div>

@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ListComponent } from './list/list.component';
+import { FinderComponent } from './finder/finder.component';
+import { CollectionComponent } from './collection/collection.component';
 
 
 const routes: Routes = [
-  { path: '', component: ListComponent },
+  { path: '', component: FinderComponent },
+  { path: 'finder', component: FinderComponent },
+  { path: 'collection', component: CollectionComponent },
 ];
 
 @NgModule({

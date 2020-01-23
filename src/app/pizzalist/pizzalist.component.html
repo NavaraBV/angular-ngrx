@@ -1,0 +1,28 @@
+<div class="row">
+    <div *ngFor="let pizza of pizzaList" class="pizza-tile col-md-3">
+
+        <mat-card class="pizza-card-container" style="text-align: center;">
+            <mat-card-title>{{pizza.name}} pizza</mat-card-title>
+
+            <img mat-card-image src="/assets/img/pizzas/pizza_margarita.png" alt="Photo of pizza">
+            <mat-card-content>
+                <p class="pizza-description">
+                    {{pizza.description}}
+                </p>
+                <p class="pizza-price">
+                    Price: <b>€{{pizza.price}}</b>
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button *ngIf="!isInCollection(pizza)" mat-button (click)="onAdd(pizza)">Add</button>
+                <button *ngIf="isInCollection(pizza)" mat-button color="warn" (click)="onRemove(pizza)">Remove</button>
+
+                <button *ngIf="!hasLiked(pizza)" mat-flat-button color="primary" (click)="onLike(pizza)"
+                matBadge="{{pizza.likes}}" matBadgePosition="after" matBadgeColor="warn">Like</button>
+
+                <button *ngIf="hasLiked(pizza)" mat-flat-button color="warn" (click)="onRemovelike(pizza)"
+                matBadge="{{pizza.likes}}" matBadgePosition="after" matBadgeColor="primary">Unlike</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

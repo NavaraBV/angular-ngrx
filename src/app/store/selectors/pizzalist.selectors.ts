@@ -4,7 +4,12 @@ import { PizzaItem } from '../models/pizzas.model';
 
 const pizzalist = (state: AppState) => state.pizzalist;
 
-export const selectFirstPizza = createSelector(
+export const filterPizzas = createSelector(
     pizzalist,
-    (pizzalist: PizzaItem[]) => pizzalist[0]
+    (pizzalist: PizzaItem[], props) => {
+        console.log("test");
+        var filter : string = (props.filter).toLowerCase();
+        pizzalist = pizzalist.filter(p => p.description.toLowerCase().includes(filter) || p.name.toLowerCase().includes(filter));
+        return pizzalist;
+    }
 );

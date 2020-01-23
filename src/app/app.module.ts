@@ -7,22 +7,24 @@ import { AppComponent } from './app.component';
 import { StoreModule, ActionReducerMap, MetaReducer, ActionReducer } from '@ngrx/store';
 import { pizzaReducer } from './store/reducers/pizzalist.reducer';
 import { pizzaCollectionReducer } from './store/reducers/pizzacollection.reducer';
-import { CreateComponent } from './create/create.component';
 import { EffectsModule } from '@ngrx/effects';
 import { PizzaListEffects } from './store/effects/pizzalist.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material.module';
-import { ListComponent } from './list/list.component';
+import { FinderComponent } from './finder/finder.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { AppState } from './app.state';
+import { CollectionComponent } from './collection/collection.component';
+import { likedPizzasReducer } from './store/reducers/likedpizzas.reducer';
+import { PizzaListComponent } from './pizzalist/pizzalist.component';
 
-const reducers: ActionReducerMap<AppState> = { pizzalist: pizzaReducer, pizzacollection: pizzaCollectionReducer }
+const reducers: ActionReducerMap<AppState> = { pizzalist: pizzaReducer, pizzacollection: pizzaCollectionReducer, likedpizzas: likedPizzasReducer }
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
-  return localStorageSync({ keys: ['pizzacollection'], rehydrate: true })(reducer);
+  return localStorageSync({ keys: ['pizzacollection', 'likedpizzas'], rehydrate: true })(reducer);
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
@@ -30,9 +32,10 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 @NgModule({
   declarations: [
     AppComponent,
-    CreateComponent,
-    ListComponent,
-    SidenavComponent
+    FinderComponent,
+    SidenavComponent,
+    CollectionComponent,
+    PizzaListComponent
   ],
   imports: [
     HttpClientModule,
