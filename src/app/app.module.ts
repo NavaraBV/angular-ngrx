@@ -1,33 +1,50 @@
+// Built-in modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// NGRX modules
 import { StoreModule, ActionReducerMap, MetaReducer, ActionReducer } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+// NGRX localstorage module
+import { localStorageSync } from 'ngrx-store-localstorage';
+
+// Our reducers
 import { pizzaReducer } from './store/reducers/pizzalist.reducer';
 import { pizzaCollectionReducer } from './store/reducers/pizzacollection.reducer';
-import { EffectsModule } from '@ngrx/effects';
-import { PizzaListEffects } from './store/effects/pizzalist.effects';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './shared/material.module';
-import { FinderComponent } from './finder/finder.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
-import { HttpClientModule } from '@angular/common/http';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { localStorageSync } from 'ngrx-store-localstorage';
-import { AppState } from './app.state';
-import { CollectionComponent } from './collection/collection.component';
 import { likedPizzasReducer } from './store/reducers/likedpizzas.reducer';
-import { PizzaListComponent } from './pizzalist/pizzalist.component';
 
+// Our effects
+import { PizzaEffects } from './store/effects/pizza.effects';
+
+// Page components
+import { FinderComponent } from './finder/finder.component';
+import { CollectionComponent } from './collection/collection.component';
+
+// Shared components
+import { MaterialModule } from './shared/material.module';
+import { SidenavComponent } from './shared/sidenav/sidenav.component';
+import { PizzaListComponent } from './shared/pizzalist/pizzalist.component';
+
+// Plugins
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { AppState } from './app.state';
+
+// <Setup the ngrx-store-localstore>
+
+// Specify the reducers in our program and what parts of our state they apply to
 const reducers: ActionReducerMap<AppState> = { pizzalist: pizzaReducer, pizzacollection: pizzaCollectionReducer, likedpizzas: likedPizzasReducer }
 
+// Specify what is stored from our state in localstorage
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({ keys: ['pizzacollection', 'likedpizzas'], rehydrate: true })(reducer);
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
+// </Setup the ngrx-store-localstore>
 
 @NgModule({
   declarations: [
@@ -38,14 +55,17 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     PizzaListComponent
   ],
   imports: [
-    HttpClientModule,
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    AppRoutingModule,
+    // Add the reducers we specified to the store module
     StoreModule.forRoot(
       reducers,
       { metaReducers }
     ),
-    EffectsModule.forRoot([PizzaListEffects]),
+    // Add our own effects to the effects module
+    EffectsModule.forRoot([PizzaEffects]),
+    
+    HttpClientModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
     InfiniteScrollModule

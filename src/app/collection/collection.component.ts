@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { PizzaItem } from '../store/models/pizzas.model';
-import { RemoveFromPizzaCollection } from '../store/actions/pizzalist.actions';
+import { RemoveFromPizzaCollection } from '../store/actions/pizza.actions';
 
 @Component({
   selector: 'app-collection',
@@ -23,7 +23,7 @@ export class CollectionComponent implements OnInit {
   ngOnInit() {
   }
 
-
+  // Remove pizza from our collection
   onRemove(pizza: PizzaItem) {
     this.store.dispatch(new RemoveFromPizzaCollection(pizza));
   }

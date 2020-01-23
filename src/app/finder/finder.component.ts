@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PizzaItem } from '../store/models/pizzas.model';
-import { LoadPizzas, AddToPizzaCollection, FilterPizzas } from '../store/actions/pizzalist.actions'
+import { LoadPizzas, AddToPizzaCollection, FilterPizzas } from '../store/actions/pizza.actions'
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -27,23 +27,32 @@ export class FinderComponent implements OnInit {
     private store: Store<AppState>
   ) {
     store.pipe(
+      // Subscribe to updates of the state
       select('pizzalist')).subscribe(data => {
+        // Get the pizzalist from the state
         this.pizzaList = data;
       });
   }
 
   ngOnInit() {
+    // Load the initial pizzas
     this.store.dispatch(new LoadPizzas({ page: this.page, limit: this.limit }));
   }
 
+  // Load the next page of images
   loadMore() {
+
+    // Check if we can still load images
     if (this.canLoadMore) {
       this.page += 1;
+      // Add the next page of pizzas to our state
       this.store.dispatch(new LoadPizzas({ page: this.page, limit: this.limit }));
     }
   }
 
+  // Filter the results
   onFilterChange(filter) {
+    // Change our state with the new filter
     this.store.dispatch(new FilterPizzas({ page: this.page, limit: this.limit, filter: filter }));
   }
 
