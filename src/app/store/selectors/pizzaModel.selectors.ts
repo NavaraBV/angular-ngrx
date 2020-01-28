@@ -1,7 +1,6 @@
 import { createSelector, MemoizedSelector } from '@ngrx/store';
-import { AppState, PizzaModelState, ViewModelState } from '../../app.state';
+import { AppState, PizzaModelState } from '../../app.state';
 import { PizzaItem } from '../models/pizzas.model';
-import { selectIsLoading, selectActiveFilter } from './viewModel.selectors';
 
 const pizzaModel = (state: AppState) => state.pizzaModel;
 
@@ -9,6 +8,8 @@ const selectPizzaModelState = (state: AppState) => state.pizzaModel;
 export const selectPizzalist = createSelector(selectPizzaModelState, (dataModel) => dataModel.pizzalist);
 export const selectPizzacollection = createSelector(selectPizzaModelState, (dataModel) => dataModel.pizzacollection);
 export const selectPizzalikes = createSelector(selectPizzaModelState, (dataModel) => dataModel.likedpizzas);
+export const selectActiveFilter = createSelector(selectPizzaModelState, (dataModel) => dataModel.activeFilter);
+export const selectIsLoading = createSelector(selectPizzaModelState, (dataModel) => dataModel.isLoading);
 
 // Selector that can be used to filter the pizzalist in our saved state
 export const filterPizzas = createSelector(
@@ -22,10 +23,12 @@ export const filterPizzas = createSelector(
 );
 
 export const selectPizzaModel: MemoizedSelector<AppState, PizzaModelState> = createSelector(
-    [selectPizzalist, selectPizzacollection, selectPizzalikes],
-    (pizzalist, pizzacollection, likedpizzas) => ({
+    [selectPizzalist, selectPizzacollection, selectPizzalikes, selectActiveFilter, selectIsLoading],
+    (pizzalist, pizzacollection, likedpizzas, activeFilter, isLoading) => ({
         pizzalist,
         pizzacollection,
-        likedpizzas
+        likedpizzas,
+        activeFilter,
+        isLoading
     })
 );

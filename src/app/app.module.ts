@@ -17,7 +17,6 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 
 // Our reducers
 import { pizzaModelReducer } from './store/reducers/pizzaModel.reducer';
-import { viewModelReducer } from './store/reducers/viewModel.reducer';
 import { pizzaformReducer } from './store/reducers/pizzaform.reducer';
 
 // Our effects
@@ -41,7 +40,7 @@ import { environment } from 'src/environments/environment';
 // <Setup the ngrx-store-localstore>
 
 // Specify the reducers in our program and what parts of our state they apply to
-const reducers: ActionReducerMap<AppState> = { pizzaModel: pizzaModelReducer, formModel: pizzaformReducer, viewModel: viewModelReducer }
+const reducers: ActionReducerMap<AppState> = { pizzaModel: pizzaModelReducer, formModel: pizzaformReducer }
 
 // Specify what is stored from our state in localstorage
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {

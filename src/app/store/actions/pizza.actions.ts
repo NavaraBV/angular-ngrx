@@ -11,8 +11,6 @@ export enum ActionTypes {
     AddLike = '[PIZZA] Added like',
     UpdateLikeSucess = '[PIZZA] Updated likes on server',
     RemoveLike = '[PIZZA] Removed like',
-    LoadPizzas = '[PIZZAS] Load pizzas from server',
-    LoadSuccess = '[PIZZAS] Load success',
     Filter = '[PIZZAS] Filter pizzas',
     FilterSuccess = '[PIZZAS] Filter success'
 }
@@ -57,38 +55,21 @@ export class RemoveLike implements Action {
     constructor(public payload: PizzaItem) { }
 }
 
-// Declare the specifications of the LoadPizzas action
-// This action is used when loading a new page of pizzas from the server
-export class LoadPizzas implements Action {
-    readonly type = ActionTypes.LoadPizzas;
-
-    // This action requires the user to specifiy the page and number in the payload
-    constructor(public payload: { page: number, limit: number, filter?: string }) { }
-}
-
-// Declare the specification of the LoadPizzasSuccess action
-// This action is used when pizzas have been successfully loaded from the server
-export class LoadPizzasSuccess implements Action {
-    readonly type = ActionTypes.LoadSuccess;
-
-    constructor(public payload: PizzaItem[]) { }
-}
-
 // Declare the specification of the AddToPizzaCollection action
-// This action is used to filter resulter from the API
+// This action is used to filter results from the API
 export class FilterPizzas implements Action {
     readonly type = ActionTypes.Filter;
 
     // This action requires the user to specifiy the page, number and a filter in the payload
-    constructor(public payload: { filter: string }) { }
+    constructor(public payload: { page: number, limit: number, filter: string }) { }
 }
 
 // Declare the specification of the FilterPizzasSuccess action
 // This action is used when the filter has returned results successfully
-export class FilterPizzasSuccess implements Action {
+export class FilterSuccess implements Action {
     readonly type = ActionTypes.FilterSuccess;
 
-    constructor(public payload: PizzaItem[]) { }
+    constructor(public payload: { filter: string, data: PizzaItem[] }) { }
 }
 
-export type Actions = AddToPizzaCollection | RemoveFromPizzaCollection | AddLike | UpdateLikeSuccess | RemoveLike | LoadPizzas | LoadPizzasSuccess | FilterPizzas | FilterPizzasSuccess;
+export type Actions = AddToPizzaCollection | RemoveFromPizzaCollection | AddLike | UpdateLikeSuccess | RemoveLike | FilterPizzas | FilterSuccess;

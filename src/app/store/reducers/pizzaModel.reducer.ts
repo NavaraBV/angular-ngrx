@@ -4,7 +4,9 @@ import { PizzaModelState } from 'src/app/app.state';
 export const initialModel: PizzaModelState = {
     pizzalist: [],
     pizzacollection: [],
-    likedpizzas: []
+    likedpizzas: [],
+    activeFilter: undefined,
+    isLoading: false
 }
 
 // The reducer that is used for changing pizzalist in our state
@@ -24,7 +26,9 @@ export function pizzaModelReducer(state: PizzaModelState = initialModel, action:
             return {
                 pizzalist: pizzalist,
                 pizzacollection: state.pizzacollection,
-                likedpizzas: state.likedpizzas
+                likedpizzas: state.likedpizzas,
+                activeFilter: state.activeFilter,
+                isLoading: state.isLoading
             };
         case PizzaModelActions.ActionTypes.RemoveLike:
             // Try to find the pizza in pizzalist
@@ -42,7 +46,9 @@ export function pizzaModelReducer(state: PizzaModelState = initialModel, action:
             return {
                 pizzalist: state.pizzalist,
                 pizzacollection: state.pizzacollection,
-                likedpizzas: state.likedpizzas
+                likedpizzas: state.likedpizzas,
+                activeFilter: state.activeFilter,
+                isLoading: state.isLoading
             };
 
         /* -------------------- COLLECTING PIZZAS -------------------- */
@@ -59,12 +65,23 @@ export function pizzaModelReducer(state: PizzaModelState = initialModel, action:
             return state;
 
         /* -------------------- LOADING PIZZAS -------------------- */
-        case PizzaModelActions.ActionTypes.LoadSuccess:
+        case PizzaModelActions.ActionTypes.Filter:
             // Add the list of results to the current pizzalist in our state
             return {
-                pizzalist: [...state.pizzalist, ...action.payload],
+                pizzalist: state.pizzalist,
                 pizzacollection: state.pizzacollection,
-                likedpizzas: state.likedpizzas
+                likedpizzas: state.likedpizzas,
+                activeFilter: action.payload.filter,
+                isLoading: true
+            };
+        case PizzaModelActions.ActionTypes.FilterSuccess:
+            // Add the list of results to the current pizzalist in our state
+            return {
+                pizzalist: action.payload.data,
+                pizzacollection: state.pizzacollection,
+                likedpizzas: state.likedpizzas,
+                activeFilter: state.activeFilter,
+                isLoading: state.isLoading
             };
         default:
             // Do nothing, just return the state
