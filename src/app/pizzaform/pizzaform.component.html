@@ -1,0 +1,20 @@
+<div class="title-header">
+    <mat-card-title class="mat-card-title">
+        Submit a new pizza
+    </mat-card-title>
+</div>
+
+<div class="container text-center">
+    <form novalidate [ngrxFormState]="(formState$ | async)">
+        <label for="name">Pizza name:</label><br>
+        <input type="text" id="name" [ngrxFormControlState]="(formState$ | async).controls.name"><br>
+
+        <label for="description">Pizza description:</label><br>
+        <input type="text" id="description" [ngrxFormControlState]="(formState$ | async).controls.description"><br>
+
+        <label for="price">Pizza price:</label><br>
+        <input type="number" id="price" [ngrxFormControlState]="(formState$ | async).controls.price"><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>

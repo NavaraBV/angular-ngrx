@@ -20,16 +20,10 @@ export class PizzaListComponent implements OnInit {
   ) {
     store.pipe(
       // Subscribe to updates of the state
-      select('pizzacollection')).subscribe(data => {
+      select('pizzaModel')).subscribe(data => {
         // Get the pizzacollection from the state
-        this.pizzaCollection = data;
-      });
-
-    store.pipe(
-      // Subscribe to updates of the state
-      select('likedpizzas')).subscribe(data => {
-        // Get the likedpizzas from the state
-        this.likedPizzas = data;
+        this.pizzaCollection = data.pizzacollection;
+        this.likedPizzas = data.likedpizzas;
       });
   }
 

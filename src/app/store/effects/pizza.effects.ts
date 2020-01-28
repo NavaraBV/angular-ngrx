@@ -1,11 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Effect, ofType, Actions } from '@ngrx/effects';
-import * as PizzaActions from '../actions/pizza.actions'
+import * as PizzaActions from '../actions/pizza.actions';
+import * as FilterActions from '../actions/filter.actions';
 import { map, withLatestFrom, switchMap, mergeMap, catchError } from 'rxjs/operators';
-import { AppState } from 'src/app/app.state';
-import { Store } from '@ngrx/store';
+import { AppState, PizzaModelState } from 'src/app/app.state';
+import { Store, select } from '@ngrx/store';
 import { PizzasService } from 'src/app/services/pizzas.service';
 import { EMPTY } from 'rxjs';
+import { selectActiveFilter } from '../selectors/viewModel.selectors';
 
 @Injectable()
 // This class specifies all the effects that are called when using actions related to pizzas
@@ -13,7 +15,8 @@ export class PizzaEffects {
 
     constructor(
         private actions: Actions,
-        private pizzaService: PizzasService
+        private pizzaService: PizzasService,
+        private store: Store<PizzaModelState>
     ) { }
 
     // Specifies the effect that is triggered when new pizzas are loaded
@@ -37,13 +40,13 @@ export class PizzaEffects {
     @Effect()
     filterPizzas = this.actions.pipe(
         // Specifies the type of action we listen for
-        ofType(PizzaActions.ActionTypes.Filter),
+        ofType(FilterActions.ActionTypes.Filter),
         mergeMap(({ payload: { page, limit, filter } }) =>
             // Make a call to the pizzaService to give us a list of pizzas based on the given page, limit and filter
-            this.pizzaService.getAllFiltered(page, limit, filter).pipe(
+            this.pizzaService.getAllFiltered(1, limit * page, filter).pipe(
                 map(data => {
                     // Return the filter success action type
-                    return { type: PizzaActions.ActionTypes.FilterSuccess, payload: data };
+                    return { type: FilterActions.ActionTypes.FilterSuccess, payload: { filter: filter, data: data } };
                 }),
                 catchError(() => EMPTY)
             )

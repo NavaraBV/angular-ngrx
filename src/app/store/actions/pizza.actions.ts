@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { PizzaItem } from '../models/pizzas.model';
+import { PizzaModelState } from 'src/app/app.state';
 
 // Specify all the types of actions we can take
 // Conventionally formatted like: '[SUBJECT(S)] <action taken>'
@@ -62,7 +63,7 @@ export class LoadPizzas implements Action {
     readonly type = ActionTypes.LoadPizzas;
 
     // This action requires the user to specifiy the page and number in the payload
-    constructor(public payload: { page: number, limit: number }) { }
+    constructor(public payload: { page: number, limit: number, filter?: string }) { }
 }
 
 // Declare the specification of the LoadPizzasSuccess action
@@ -79,7 +80,7 @@ export class FilterPizzas implements Action {
     readonly type = ActionTypes.Filter;
 
     // This action requires the user to specifiy the page, number and a filter in the payload
-    constructor(public payload: { page: number, limit: number, filter: string }) { }
+    constructor(public payload: { filter: string }) { }
 }
 
 // Declare the specification of the FilterPizzasSuccess action

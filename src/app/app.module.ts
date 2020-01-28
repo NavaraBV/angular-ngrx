@@ -9,13 +9,16 @@ import { AppComponent } from './app.component';
 // NGRX modules
 import { StoreModule, ActionReducerMap, MetaReducer, ActionReducer } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { NgrxFormsModule } from 'ngrx-forms';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 // NGRX localstorage module
 import { localStorageSync } from 'ngrx-store-localstorage';
 
 // Our reducers
-import { pizzaReducer } from './store/reducers/pizzalist.reducer';
-import { pizzaCollectionReducer } from './store/reducers/pizzacollection.reducer';
-import { likedPizzasReducer } from './store/reducers/likedpizzas.reducer';
+import { pizzaModelReducer } from './store/reducers/pizzaModel.reducer';
+import { viewModelReducer } from './store/reducers/viewModel.reducer';
+import { pizzaformReducer } from './store/reducers/pizzaform.reducer';
 
 // Our effects
 import { PizzaEffects } from './store/effects/pizza.effects';
@@ -32,15 +35,17 @@ import { PizzaListComponent } from './shared/pizzalist/pizzalist.component';
 // Plugins
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AppState } from './app.state';
+import { PizzaformComponent } from './pizzaform/pizzaform.component';
+import { environment } from 'src/environments/environment';
 
 // <Setup the ngrx-store-localstore>
 
 // Specify the reducers in our program and what parts of our state they apply to
-const reducers: ActionReducerMap<AppState> = { pizzalist: pizzaReducer, pizzacollection: pizzaCollectionReducer, likedpizzas: likedPizzasReducer }
+const reducers: ActionReducerMap<AppState> = { pizzaModel: pizzaModelReducer, formModel: pizzaformReducer, viewModel: viewModelReducer }
 
 // Specify what is stored from our state in localstorage
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
-  return localStorageSync({ keys: ['pizzacollection', 'likedpizzas'], rehydrate: true })(reducer);
+  return localStorageSync({ keys: ['pizzaModel'], rehydrate: true })(reducer);
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
@@ -52,7 +57,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     FinderComponent,
     SidenavComponent,
     CollectionComponent,
-    PizzaListComponent
+    PizzaListComponent,
+    PizzaformComponent
   ],
   imports: [
     // Add the reducers we specified to the store module
@@ -62,7 +68,13 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     ),
     // Add our own effects to the effects module
     EffectsModule.forRoot([PizzaEffects]),
-    
+    NgrxFormsModule,
+    // Instrumentation must be imported after importing StoreModule (config is optional)
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
+
     HttpClientModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,

@@ -15,8 +15,8 @@ export class CollectionComponent implements OnInit {
 
   constructor(private store: Store<AppState>) {
     store.pipe(
-      select('pizzacollection')).subscribe(data => {
-        this.pizzaCollection = data;
+      select('pizzaModel')).subscribe(data => {
+        this.pizzaCollection = data.pizzacollection;
       });
   }
 
