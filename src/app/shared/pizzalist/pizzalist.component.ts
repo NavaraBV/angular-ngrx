@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PizzaItem } from '../../store/models/pizzas.model';
-import { AddToPizzaCollection, RemoveFromPizzaCollection, AddLike, RemoveLike } from '../../store/actions/pizza.actions';
+import { AddLike, RemoveLike } from '../../store/actions/pizza.actions';
 import { AppState } from '../../app.state';
 import { Store, select } from '@ngrx/store';
 
@@ -31,13 +31,13 @@ export class PizzaListComponent implements OnInit {
   }
 
   onAdd(pizza) {
-    // Add the pizza to the pizzacollection in our state 
-    this.store.dispatch(new AddToPizzaCollection(pizza));
+    /* TODO: Add pizza to my collection */
+
   }
 
   onRemove(pizza) {
-    // Remove the pizza from the pizzacollection in our state 
-    this.store.dispatch(new RemoveFromPizzaCollection(pizza));
+    /* TODO: Remove pizza from my collection */
+
   }
 
   isInCollection(pizza: PizzaItem) {

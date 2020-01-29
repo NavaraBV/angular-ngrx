@@ -14,6 +14,7 @@ export function pizzaModelReducer(state: PizzaModelState = initialModel, action:
     switch (action.type) {
         /* -------------------- LIKING PIZZAS -------------------- */
         case PizzaModelActions.ActionTypes.AddLike:
+            console.log("Add Like");
             // Try to find the pizza in pizzalist
             var i = state.pizzalist.findIndex(p => p.id == action.payload.id);
             var pizzalist = state.pizzalist;
@@ -52,17 +53,7 @@ export function pizzaModelReducer(state: PizzaModelState = initialModel, action:
             };
 
         /* -------------------- COLLECTING PIZZAS -------------------- */
-        case PizzaModelActions.ActionTypes.AddToCollection:
-            // Add a new pizza to pizzacollection in our state
-            state.pizzacollection.push(action.payload);
-            return state;
-        case PizzaModelActions.ActionTypes.RemoveFromCollection:
-            // Try to find the pizza in pizzacollection
-            const index = state.pizzacollection.findIndex(p => p.id == action.payload.id);
-            if (index >= 0)
-                // Remove the pizza from pizzacollection in our state
-                state.pizzacollection.splice(index, 1);
-            return state;
+            // Code here
 
         /* -------------------- LOADING PIZZAS -------------------- */
         case PizzaModelActions.ActionTypes.Filter:

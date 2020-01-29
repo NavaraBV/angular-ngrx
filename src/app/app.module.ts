@@ -49,7 +49,6 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
 // </Setup the ngrx-store-localstore>
-
 @NgModule({
   declarations: [
     AppComponent,
