@@ -2,12 +2,12 @@
     <div *ngFor="let pizza of pizzaList" class="pizza-tile col-md-3">
 
         <mat-card class="pizza-card-container" style="text-align: center;">
-            <mat-card-title class="text-capitalize">{{pizza.name}} pizza</mat-card-title>
+            <mat-card-title>{{pizza.name}} pizza</mat-card-title>
 
             <img mat-card-image src="/assets/img/pizzas/pizza_margarita.png" alt="Photo of pizza">
 
             <mat-card-content>
-                <p class="pizza-description text-lowercase">
+                <p class="pizza-description">
                     {{pizza.description}}
                 </p>
                 <p class="pizza-price">
