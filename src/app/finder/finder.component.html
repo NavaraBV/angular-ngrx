@@ -4,11 +4,16 @@
     </mat-card-title>
 
     <mat-form-field class="example-full-width">
-        <input matInput #filter placeholder="Favorite pizza" value="{{activeFilter}}" (input)="onFilterChange(filter.value)">
+        <input matInput #filter placeholder="Favorite pizza" value="{{activeFilter}}"
+            (input)="onFilterChange(filter.value)">
     </mat-form-field>
 </div>
 
 <div class="container text-center">
+    <p class="font-weight-bold my-1">Total pizzas: {{totalPizzas | async}}</p>
+    <p class="font-weight-bold my-1">Total likes: {{totalLikes | async}}</p>
+    <p class="font-weight-bold my-1">Pizzas in collection: {{totalCollection | async}}</p>
+
     <section class="pizza-area" infinite-scroll (scrolled)="loadMore()">
         <app-pizzalist [pizzaList]="pizzaList"></app-pizzalist>
     </section>

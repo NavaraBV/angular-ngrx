@@ -4,6 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { FormGroup } from '@angular/forms';
 import { FilterPizzas } from '../store/actions/pizza.actions';
+import { selectTotalPizzaLikes, selectPizzaCount, selectPizzacollectionCount } from '../store/selectors/pizzaModel.selectors';
 
 @Component({
   selector: 'app-finder',
@@ -62,6 +63,18 @@ export class FinderComponent implements OnInit {
   onFilterChange(filter) {
     // Change our state with the new filter
     this.store.dispatch(new FilterPizzas({ page: this.page, limit: this.limit, filter: filter }));
+  }
+
+  get totalLikes() {
+    return this.store.select(selectTotalPizzaLikes);
+  }
+
+  get totalPizzas() {
+    return this.store.select(selectPizzaCount);
+  }
+
+  get totalCollection() {
+    return this.store.select(selectPizzacollectionCount);
   }
 
   get canLoadMore(): boolean {
