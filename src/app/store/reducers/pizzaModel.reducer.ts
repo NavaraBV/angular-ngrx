@@ -94,7 +94,7 @@ export function pizzaModelReducer(state: PizzaModelState = initialModel, action:
         case PizzaModelActions.ActionTypes.FilterSuccess:
             // Add the list of results to the current pizzalist in our state
             return {
-                pizzalist: action.payload.data,
+                pizzalist: [...action.payload.data],
                 pizzacollection: state.pizzacollection,
                 likedpizzas: state.likedpizzas,
                 activeFilter: state.activeFilter,

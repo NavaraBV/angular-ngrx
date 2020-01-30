@@ -60,7 +60,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     // Add the reducers we specified to the store module
     StoreModule.forRoot(
       reducers,
-      // { metaReducers }
+      { metaReducers }
     ),
     // Add our own effects to the effects module
     EffectsModule.forRoot([PizzaEffects]),
