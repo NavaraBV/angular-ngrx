@@ -52,6 +52,7 @@ export class PizzaEffects {
         })
     )
 
+    // Specifies the effect that is triggered when pizzas are unliked
     @Effect()
     removeLike = this.actions.pipe(
         // Specifies the types of the actions we listen for
