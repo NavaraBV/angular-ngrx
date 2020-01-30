@@ -18,7 +18,6 @@ export function pizzaModelReducer(state: PizzaModelState = initialModel, action:
     switch (action.type) {
         /* -------------------- LIKING PIZZAS -------------------- */
         case PizzaModelActions.ActionTypes.AddLike:
-            console.log("Add Like");
             // Try to find the pizza in pizzalist
             pizzalist_index = state.pizzalist.findIndex(p => p.id == action.payload.id);
 
