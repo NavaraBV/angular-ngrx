@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { environment } from 'src/environments/environment';
 
 // NGRX modules
 import { StoreModule, ActionReducerMap, MetaReducer, ActionReducer } from '@ngrx/store';
@@ -17,7 +18,6 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 
 // Our reducers
 import { pizzaModelReducer } from './store/reducers/pizzaModel.reducer';
-import { pizzaformReducer } from './store/reducers/pizzaform.reducer';
 
 // Our effects
 import { PizzaEffects } from './store/effects/pizza.effects';
@@ -34,13 +34,11 @@ import { PizzaListComponent } from './shared/pizzalist/pizzalist.component';
 // Plugins
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AppState } from './app.state';
-import { PizzaformComponent } from './pizzaform/pizzaform.component';
-import { environment } from 'src/environments/environment';
 
 // <Setup the ngrx-store-localstore>
 
 // Specify the reducers in our program and what parts of our state they apply to
-const reducers: ActionReducerMap<AppState> = { pizzaModel: pizzaModelReducer, formModel: pizzaformReducer }
+const reducers: ActionReducerMap<AppState> = { pizzaModel: pizzaModelReducer }
 
 // Specify what is stored from our state in localstorage
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -56,14 +54,13 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     FinderComponent,
     SidenavComponent,
     CollectionComponent,
-    PizzaListComponent,
-    PizzaformComponent
+    PizzaListComponent
   ],
   imports: [
     // Add the reducers we specified to the store module
     StoreModule.forRoot(
       reducers,
-      { metaReducers }
+      // { metaReducers }
     ),
     // Add our own effects to the effects module
     EffectsModule.forRoot([PizzaEffects]),

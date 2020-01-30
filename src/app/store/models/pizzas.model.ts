@@ -6,3 +6,11 @@ export interface PizzaItem {
     price: number,
     likes: number
 }
+
+export const emptyPizzaItem: PizzaItem = {
+    id: '',
+    name: '',
+    description: '',
+    price: 0,
+    likes: 0
+};
