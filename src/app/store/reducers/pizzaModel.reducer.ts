@@ -1,5 +1,6 @@
 import * as PizzaModelActions from '../actions/pizza.actions'
 import { PizzaModelState } from 'src/app/app.state';
+import { PizzaItem, emptyPizzaItem } from '../models/pizzas.model';
 
 export const initialModel: PizzaModelState = {
     pizzalist: [],
@@ -11,49 +12,54 @@ export const initialModel: PizzaModelState = {
 
 // The reducer that is used for changing pizzalist in our state
 export function pizzaModelReducer(state: PizzaModelState = initialModel, action: PizzaModelActions.Actions): PizzaModelState {
+
+    let pizzalist_index = 0, likedpizzas_index = 0, pizzacollection_index = 0;
+
     switch (action.type) {
         /* -------------------- LIKING PIZZAS -------------------- */
         case PizzaModelActions.ActionTypes.AddLike:
             console.log("Add Like");
             // Try to find the pizza in pizzalist
-            var i = state.pizzalist.findIndex(p => p.id == action.payload.id);
-            var pizzalist = state.pizzalist;
-            if (i >= 0)
-                // Add a like to the pizza in our state
-                pizzalist[i].likes++;
+            pizzalist_index = state.pizzalist.findIndex(p => p.id == action.payload.id);
 
-            state.likedpizzas.push(action.payload);
+            // Very important to assign a new object and modify that. We cannot have side-effects modifying the state directly!
+            var pizzaItem: PizzaItem = emptyPizzaItem;
+            Object.assign(pizzaItem, state.pizzalist[pizzalist_index]);
+            pizzaItem.likes++;
 
             return {
-                pizzalist: pizzalist,
+                // Very important to assemble a new list, we cannot have side-effects modifying the state directly!
+                // Must also insert a newly assigned object into the array instead of the direct reference: no side effects!
+                pizzalist: [...state.pizzalist.slice(0, pizzalist_index), Object.assign({}, pizzaItem), ...state.pizzalist.slice(pizzalist_index + 1)],
                 pizzacollection: state.pizzacollection,
-                likedpizzas: state.likedpizzas,
+                // Very important to assemble a new list, we cannot have side-effects modifying the state directly!
+                likedpizzas: [...state.likedpizzas, action.payload],
                 activeFilter: state.activeFilter,
                 isLoading: state.isLoading
             };
         case PizzaModelActions.ActionTypes.RemoveLike:
             // Try to find the pizza in pizzalist
-            var likedpizzas_index = state.likedpizzas.findIndex(p => p.id == action.payload.id);
-            var pizzalist_index = state.pizzalist.findIndex(p => p.id == action.payload.id);
+            pizzalist_index = state.pizzalist.findIndex(p => p.id == action.payload.id);
+            likedpizzas_index = state.likedpizzas.findIndex(p => p.id == action.payload.id);
 
-            if (pizzalist_index >= 0)
-                // Remove a like from the pizza in our state
-                state.pizzalist[pizzalist_index].likes--;
-
-            if (likedpizzas_index >= 0)
-                // Remove a pizza from our likedpizzas list
-                state.likedpizzas.splice(likedpizzas_index, 1);
+            // Very important to assign a new object and modify that. We cannot have side-effects modifying the state directly!
+            var pizzaItem: PizzaItem = emptyPizzaItem;
+            Object.assign(pizzaItem, state.pizzalist[pizzalist_index]);
+            pizzaItem.likes--;
 
             return {
-                pizzalist: state.pizzalist,
+                // Very important to assemble a new list, we cannot have side-effects modifying the state directly!
+                // Must also insert a newly assigned object into the array instead of the direct reference: no side effects!
+                pizzalist: [...state.pizzalist.slice(0, pizzalist_index), Object.assign({}, pizzaItem), ...state.pizzalist.slice(pizzalist_index + 1)],
                 pizzacollection: state.pizzacollection,
-                likedpizzas: state.likedpizzas,
+                // Very important to assemble a new list, we cannot have side-effects modifying the state directly!
+                likedpizzas: [...state.likedpizzas.slice(0, likedpizzas_index), ...state.likedpizzas.slice(likedpizzas_index + 1)],
                 activeFilter: state.activeFilter,
                 isLoading: state.isLoading
             };
 
         /* -------------------- COLLECTING PIZZAS -------------------- */
-            // Code here
+        // Code here
 
         /* -------------------- LOADING PIZZAS -------------------- */
         case PizzaModelActions.ActionTypes.Filter:
@@ -72,7 +78,7 @@ export function pizzaModelReducer(state: PizzaModelState = initialModel, action:
                 pizzacollection: state.pizzacollection,
                 likedpizzas: state.likedpizzas,
                 activeFilter: state.activeFilter,
-                isLoading: state.isLoading
+                isLoading: false
             };
         default:
             // Do nothing, just return the state

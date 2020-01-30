@@ -4,7 +4,6 @@ import { FormGroupState } from 'ngrx-forms';
 // Specifies our state
 export interface AppState {
     pizzaModel: PizzaModelState,
-    formModel: FormGroupState<PizzaItem>
 }
 
 export interface PizzaModelState {
