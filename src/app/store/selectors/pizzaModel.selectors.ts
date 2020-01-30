@@ -2,33 +2,18 @@ import { createSelector, MemoizedSelector } from '@ngrx/store';
 import { AppState, PizzaModelState } from '../../app.state';
 import { PizzaItem } from '../models/pizzas.model';
 
-const pizzaModel = (state: AppState) => state.pizzaModel;
-
 const selectPizzaModelState = (state: AppState) => state.pizzaModel;
+
 export const selectPizzalist = createSelector(selectPizzaModelState, (dataModel) => dataModel.pizzalist);
+// Add pizza count selector
+
 export const selectPizzacollection = createSelector(selectPizzaModelState, (dataModel) => dataModel.pizzacollection);
+// Add pizza collection count selector
+
 export const selectPizzalikes = createSelector(selectPizzaModelState, (dataModel) => dataModel.likedpizzas);
+// Add pizza total likes count selector
+
 export const selectActiveFilter = createSelector(selectPizzaModelState, (dataModel) => dataModel.activeFilter);
 export const selectIsLoading = createSelector(selectPizzaModelState, (dataModel) => dataModel.isLoading);
 
-// Selector that can be used to filter the pizzalist in our saved state
-export const filterPizzas = createSelector(
-    pizzaModel,
-    (pizzaModel: PizzaModelState, props) => {
-        // get the filter, convert to all lower case
-        var filter: string = (props.filter).toLowerCase();
-        // apply the filter to the pizzalist in our state
-        return pizzaModel.pizzalist.filter(p => p.description.toLowerCase().includes(filter) || p.name.toLowerCase().includes(filter));
-    }
-);
 
-export const selectPizzaModel: MemoizedSelector<AppState, PizzaModelState> = createSelector(
-    [selectPizzalist, selectPizzacollection, selectPizzalikes, selectActiveFilter, selectIsLoading],
-    (pizzalist, pizzacollection, likedpizzas, activeFilter, isLoading) => ({
-        pizzalist,
-        pizzacollection,
-        likedpizzas,
-        activeFilter,
-        isLoading
-    })
-);

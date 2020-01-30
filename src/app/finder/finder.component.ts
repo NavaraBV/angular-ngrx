@@ -64,6 +64,21 @@ export class FinderComponent implements OnInit {
     this.store.dispatch(new FilterPizzas({ page: this.page, limit: this.limit, filter: filter }));
   }
 
+  get totalLikes() {
+    // Select total likes from store
+    return 0;
+  }
+
+  get totalPizzas() {
+    // Select total pizza count from store
+    return 0;
+  }
+
+  get totalCollection() {
+    // Select total pizza collection count from store
+    return 0;
+  }
+
   get canLoadMore(): boolean {
     return this.page < this.maxpages;
   }
