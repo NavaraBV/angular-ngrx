@@ -4,7 +4,6 @@ import { PizzaItem, emptyPizzaItem } from '../models/pizzas.model';
 
 export const initialModel: PizzaModelState = {
     pizzalist: [],
-    pizzacollection: [],
     likedpizzas: [],
     activeFilter: undefined,
     isLoading: false
