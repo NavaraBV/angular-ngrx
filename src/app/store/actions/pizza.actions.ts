@@ -6,20 +6,12 @@ import { PizzaModelState } from 'src/app/app.state';
 // Conventionally formatted like: '[SUBJECT(S)] <action taken>'
 // NOTE: values declared here MUST be unique!
 export enum ActionTypes {
-    AddToCollection = '[PIZZA] Pizza added to collection',
-    RemoveFromCollection = '[PIZZA] Pizza removed from collection',
     AddLike = '[PIZZA] Added like',
     UpdateLikeSucess = '[PIZZA] Updated likes on server',
     RemoveLike = '[PIZZA] Removed like',
     Filter = '[PIZZAS] Filter pizzas',
     FilterSuccess = '[PIZZAS] Filter success'
 }
-
-/* TODO: Add Pizza to collection action */
-// Code here
-
-/* TODO: Remove Pizza from collection action */
-// Code here
 
 // Declare the specifications of the AddLike action
 // This action is used to add a like to a pizza

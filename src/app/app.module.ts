@@ -24,7 +24,7 @@ import { PizzaEffects } from './store/effects/pizza.effects';
 
 // Page components
 import { FinderComponent } from './finder/finder.component';
-import { CollectionComponent } from './collection/collection.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 // Shared components
 import { MaterialModule } from './shared/material.module';
@@ -34,33 +34,41 @@ import { PizzaListComponent } from './shared/pizzalist/pizzalist.component';
 // Plugins
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AppState } from './app.state';
+import { pizzaCartReducer } from './store/reducers/pizzaCart.reducer';
 
 // <Setup the ngrx-store-localstore>
 
 // Specify the reducers in our program and what parts of our state they apply to
-const reducers: ActionReducerMap<AppState> = { pizzaModel: pizzaModelReducer }
+const reducers: ActionReducerMap<AppState> = { pizzaModel: pizzaModelReducer, pizzaCart: pizzaCartReducer };
 
 // Specify what is stored from our state in localstorage
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
-  return localStorageSync({ keys: ['pizzaModel'], rehydrate: true })(reducer);
+  return localStorageSync({ keys: ['pizzaModel', 'pizzaCart'], rehydrate: true })(reducer);
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
 // </Setup the ngrx-store-localstore>
+
 @NgModule({
   declarations: [
     AppComponent,
     FinderComponent,
     SidenavComponent,
-    CollectionComponent,
-    PizzaListComponent
+    ShoppingCartComponent,
+    PizzaListComponent,
+    ShoppingCartComponent
   ],
   imports: [
     // Add the reducers we specified to the store module
-    StoreModule.forRoot(
-      reducers,
-      { metaReducers }
-    ),
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+      },
+    }),
     // Add our own effects to the effects module
     EffectsModule.forRoot([PizzaEffects]),
     NgrxFormsModule,

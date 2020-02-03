@@ -2,6 +2,10 @@
     height: 100%;
 }
 
+.page-title {
+    cursor: pointer;
+}
+
 .nav-container {
     height: 100%;
 }
@@ -13,3 +17,11 @@
 .active-link, .active-link:hover, .active-link:active, .active-link:focus {
     background-color: #3f51b556;
 }
+
+.cart {
+    cursor: pointer;
+}
+
+.spacer {
+    flex: 1 1 auto;
+  }

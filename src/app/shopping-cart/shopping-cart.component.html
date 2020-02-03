@@ -1,0 +1,62 @@
+<div class="cart-page-header">
+    <mat-card-title class="mat-card-title">
+        Your Shopping Cart
+    </mat-card-title>
+</div>
+
+<div class="container text-center">
+    <section class="cart-area">
+
+        <div class="row">
+            <div class="cartItem-labels col-md-12 m-0 py-3 px-0">
+                <div class="row font-weight-bold ">
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-2">
+                        <p class="m-0">Name</p>
+                    </div>
+                    <div class="col-md-7"></div>
+                    <div class="col-md-2">
+                        <p class="m-0">Price</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div *ngFor="let cartItem of pizzaCart" class="cartItem-row col-md-12">
+                <div class="row align-items-center">
+                    <div class="col-md-1">
+                        <button mat-icon-button color="accent" aria-label="Remove button" (click)="onRemove(cartItem)">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="cartItem-title m-0">{{cartItem.pizzaItem.name}} pizza</p>
+                    </div>
+                    <div class="col-md-7"></div>
+                    <div class="col-md-2">
+                        <div class="cartItem-amount d-flex justify-content-center">
+                            <button mat-icon-button color="primary" aria-label="Remove button"
+                                (click)="onDecrease(cartItem)" [disabled]="cartItem.amount <= 1">
+                                <mat-icon>remove_circle</mat-icon>
+                            </button>
+                            <p class="cartItem-amount-number my-auto">{{cartItem.amount}}</p>
+                            <button mat-icon-button color="primary" aria-label="Add button"
+                                (click)="onIncrease(cartItem)">
+                                <mat-icon>add_circle</mat-icon>
+                            </button>
+                        </div>
+                        <p class="m-0">€ {{cartItem.amount * cartItem.pizzaItem.price}}</p>
+                    </div>
+                </div>
+
+
+                <mat-divider></mat-divider>
+            </div>
+        </div>
+
+        <mat-divider class="my-3"></mat-divider>
+
+        <p class="text-right mx-5"><b>Total: </b>€ {{cartTotal | async}}</p>
+    </section>
+</div>

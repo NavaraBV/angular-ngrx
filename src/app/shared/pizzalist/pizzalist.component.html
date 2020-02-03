@@ -15,8 +15,8 @@
                 </p>
             </mat-card-content>
             <mat-card-actions>
-                <button *ngIf="!isInCollection(pizza)" mat-button (click)="onAdd(pizza)">Add</button>
-                <button *ngIf="isInCollection(pizza)" mat-button color="warn" (click)="onRemove(pizza)">Remove</button>
+                <button *ngIf="!isInCart(pizza)" mat-button (click)="onAdd(pizza)">Add</button>
+                <button *ngIf="isInCart(pizza)" mat-button color="warn" (click)="onRemove(pizza)">Remove</button>
 
                 <button *ngIf="!hasLiked(pizza)" mat-flat-button color="primary" (click)="onLike(pizza)"
                 matBadge="{{pizza.likes}}" matBadgePosition="after" matBadgeColor="warn">Like</button>
