@@ -5,8 +5,7 @@ import { AppState } from '../app.state';
 import { FormGroup } from '@angular/forms';
 import { FilterPizzas } from '../store/actions/pizza.actions';
 import {
-  selectTotalPizzaLikes, selectPizzaCount,
-  selectPizzacollectionCount, selectIsLoading
+  selectTotalPizzaLikes, selectPizzaCount, selectIsLoading
 } from '../store/selectors/pizzaModel.selectors';
 
 @Component({
@@ -72,10 +71,6 @@ export class FinderComponent implements OnInit {
 
   get totalPizzas() {
     return this.store.select(selectPizzaCount);
-  }
-
-  get totalCollection() {
-    return this.store.select(selectPizzacollectionCount);
   }
 
   get isLoading() {

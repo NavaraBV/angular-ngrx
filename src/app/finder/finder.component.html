@@ -12,7 +12,6 @@
 <div class="container text-center">
     <p class="font-weight-bold my-1">Total pizzas: {{totalPizzas | async}}</p>
     <p class="font-weight-bold my-1">Total likes: {{totalLikes | async}}</p>
-    <p class="font-weight-bold my-1">Pizzas in collection: {{totalCollection | async}}</p>
 
     <section class="pizza-area" infinite-scroll (scrolled)="loadMore()">
         <app-pizzalist [pizzaList]="pizzaList"></app-pizzalist>

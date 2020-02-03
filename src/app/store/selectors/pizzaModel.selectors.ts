@@ -7,9 +7,6 @@ const selectPizzaModelState = (state: AppState) => state.pizzaModel;
 export const selectPizzalist = createSelector(selectPizzaModelState, (dataModel) => dataModel.pizzalist);
 export const selectPizzaCount = createSelector(selectPizzaModelState, (dataModel) => dataModel.pizzalist.length);
 
-export const selectPizzacollection = createSelector(selectPizzaModelState, (dataModel) => dataModel.pizzacollection);
-export const selectPizzacollectionCount = createSelector(selectPizzaModelState, (dataModel) => dataModel.pizzacollection.length);
-
 export const selectPizzalikes = createSelector(selectPizzaModelState, (dataModel) => dataModel.likedpizzas);
 const likeReducer = (accumulator: number, currentValue: PizzaItem) => accumulator + currentValue.likes;
 export const selectTotalPizzaLikes = createSelector(selectPizzaModelState, (dataModel) => dataModel.pizzalist.reduce(likeReducer, 0));

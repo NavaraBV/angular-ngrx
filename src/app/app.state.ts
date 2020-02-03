@@ -9,7 +9,6 @@ export interface AppState {
 
 export interface PizzaModelState {
     pizzalist: PizzaItem[];
-    pizzacollection: PizzaItem[];
     likedpizzas: PizzaItem[];
     isLoading: boolean;
     activeFilter?: string;
