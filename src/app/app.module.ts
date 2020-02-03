@@ -61,13 +61,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
   imports: [
     // Add the reducers we specified to the store module
     StoreModule.forRoot(reducers, {
-      metaReducers,
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-        strictStateSerializability: true,
-        strictActionSerializability: true,
-      },
+      metaReducers
     }),
     // Add our own effects to the effects module
     EffectsModule.forRoot([PizzaEffects]),
