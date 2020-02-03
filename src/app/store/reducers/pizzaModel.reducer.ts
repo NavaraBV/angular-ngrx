@@ -17,7 +17,7 @@ export function pizzaModelReducer(
 ): PizzaModelState {
     let pizzalistIndex = 0;
     let likedpizzasIndex = 0;
-    let pizzaItem: PizzaItem;
+    let newPizza: PizzaItem;
 
     switch (action.type) {
         /* -------------------- LIKING PIZZAS -------------------- */
@@ -28,23 +28,22 @@ export function pizzaModelReducer(
             );
 
             // Very important to assign a new object and modify that. We cannot have side-effects modifying the state directly!
-            pizzaItem = emptyPizzaItem;
-            Object.assign(pizzaItem, state.pizzalist[pizzalistIndex]);
-            pizzaItem.likes++;
+            newPizza = {
+                ...action.payload,
+                likes: action.payload.likes + 1
+            };
 
             return {
+                ...state,
                 // Very important to assemble a new list, we cannot have side-effects modifying the state directly!
                 // Must also insert a newly assigned object into the array instead of the direct reference: no side effects!
                 pizzalist: [
                     ...state.pizzalist.slice(0, pizzalistIndex),
-                    Object.assign({}, pizzaItem),
+                    newPizza,
                     ...state.pizzalist.slice(pizzalistIndex + 1)
                 ],
-                pizzacollection: state.pizzacollection,
                 // Very important to assemble a new list, we cannot have side-effects modifying the state directly!
                 likedpizzas: [...state.likedpizzas, action.payload],
-                activeFilter: state.activeFilter,
-                isLoading: state.isLoading
             };
         case PizzaModelActions.ActionTypes.RemoveLike:
             // Try to find the pizza in pizzalist
@@ -56,43 +55,38 @@ export function pizzaModelReducer(
             );
 
             // Very important to assign a new object and modify that. We cannot have side-effects modifying the state directly!
-            pizzaItem = emptyPizzaItem;
-            Object.assign(pizzaItem, state.pizzalist[pizzalistIndex]);
-            pizzaItem.likes--;
+            newPizza = {
+                ...action.payload,
+                likes: action.payload.likes - 1
+            };
+
             return {
+                ...state,
                 // Very important to assemble a new list, we cannot have side-effects modifying the state directly!
                 // Must also insert a newly assigned object into the array instead of the direct reference: no side effects!
                 pizzalist: [
                     ...state.pizzalist.slice(0, pizzalistIndex),
-                    Object.assign({}, pizzaItem),
+                    newPizza,
                     ...state.pizzalist.slice(pizzalistIndex + 1)
                 ],
-                pizzacollection: state.pizzacollection,
                 // Very important to assemble a new list, we cannot have side-effects modifying the state directly!
                 likedpizzas: [
                     ...state.likedpizzas.slice(0, likedpizzasIndex),
                     ...state.likedpizzas.slice(likedpizzasIndex + 1)
                 ],
-                activeFilter: state.activeFilter,
-                isLoading: state.isLoading
             };
         /* -------------------- LOADING PIZZAS -------------------- */
         case PizzaModelActions.ActionTypes.Filter:
             // Add the list of results to the current pizzalist in our state
             return {
-                pizzalist: state.pizzalist,
-                pizzacollection: state.pizzacollection,
-                likedpizzas: state.likedpizzas,
-                activeFilter: action.payload.filter,
+                ...state,
                 isLoading: true
             };
         case PizzaModelActions.ActionTypes.FilterSuccess:
             // Add the list of results to the current pizzalist in our state
             return {
+                ...state,
                 pizzalist: [...action.payload.data],
-                pizzacollection: state.pizzacollection,
-                likedpizzas: state.likedpizzas,
-                activeFilter: state.activeFilter,
                 isLoading: false
             };
         default:
