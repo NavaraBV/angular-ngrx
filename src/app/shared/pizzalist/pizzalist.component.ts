@@ -1,10 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PizzaItem } from '../../store/models/pizzas.model';
 import { AddLike, RemoveLike } from '../../store/actions/pizza.actions';
-<<<<<<< HEAD
-=======
-import { AddToCart, RemoveFromCart} from '../../store/actions/pizzacart.actions';
->>>>>>> master
 import { AppState } from '../../app.state';
 import { Store, select } from '@ngrx/store';
 import { PizzaCartItem } from 'src/app/store/models/pizzacart.model';
@@ -42,23 +38,13 @@ export class PizzaListComponent implements OnInit {
   }
 
   onAdd(pizza) {
-<<<<<<< HEAD
-    /* TODO: Add pizza to my collection */
-
+    // TODO 1
+    return;
   }
 
   onRemove(pizza) {
-    /* TODO: Remove pizza from my collection */
-
-=======
-    // Add the pizza to the cart in our state
-    this.store.dispatch(new AddToCart(pizza));
-  }
-
-  onRemove(pizza) {
-    // Remove the pizza from the cart in our state
-    this.store.dispatch(new RemoveFromCart(pizza));
->>>>>>> master
+    // TODO 1a
+    return;
   }
 
   isInCart(pizza: PizzaItem) {

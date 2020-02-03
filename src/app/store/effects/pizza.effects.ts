@@ -35,38 +35,8 @@ export class PizzaEffects {
     );
 
     // Specifies the effect that is triggered when pizzas are liked
-    @Effect()
-    addLike = this.actions.pipe(
-        // Specifies the types of the actions we listen for
-        ofType<PizzaActions.AddLike>(PizzaActions.ActionTypes.AddLike),
-        map(action => {
-            // Make a call to the pizzaService to change the amount of likes a pizza has
-            this.pizzaService.putLike(action.payload.id, action.payload.likes + 1).pipe(
-                map(products => {
-                    return new PizzaActions.UpdateLikeSuccess(action.payload);
-                }),
-                catchError(() => EMPTY)
-            ).subscribe()
-
-            return new PizzaActions.UpdateLikeSuccess(action.payload);
-        })
-    )
+    // TODO 2
 
     // Specifies the effect that is triggered when pizzas are unliked
-    @Effect()
-    removeLike = this.actions.pipe(
-        // Specifies the types of the actions we listen for
-        ofType<PizzaActions.RemoveLike>(PizzaActions.ActionTypes.RemoveLike),
-        map(action => {
-            // Make a call to the pizzaService to change the amount of likes a pizza has
-            this.pizzaService.putLike(action.payload.id, action.payload.likes - 1).pipe(
-                map(products => {
-                    return new PizzaActions.UpdateLikeSuccess(action.payload);
-                }),
-                catchError(() => EMPTY)
-            ).subscribe()
-
-            return new PizzaActions.UpdateLikeSuccess(action.payload);
-        })
-    )
+    // TODO 2
 }

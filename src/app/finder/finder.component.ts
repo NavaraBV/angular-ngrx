@@ -4,12 +4,9 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { FormGroup } from '@angular/forms';
 import { FilterPizzas } from '../store/actions/pizza.actions';
-<<<<<<< HEAD
-=======
 import {
   selectTotalPizzaLikes, selectPizzaCount, selectIsLoading
 } from '../store/selectors/pizzaModel.selectors';
->>>>>>> master
 
 @Component({
   selector: 'app-finder',
@@ -78,14 +75,8 @@ export class FinderComponent implements OnInit {
     return 0;
   }
 
-<<<<<<< HEAD
-  get totalCollection() {
-    // Select total pizza collection count from store
-    return 0;
-=======
   get isLoading() {
     return this.store.select(selectIsLoading);
->>>>>>> master
   }
 
   get canLoadMore(): boolean {

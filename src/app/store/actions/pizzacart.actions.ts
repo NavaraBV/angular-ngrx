@@ -13,36 +13,16 @@ export enum ActionTypes {
     DecreaseCartAmount = '[CARTITEM] Pizza cart amount decreased',
 }
 
-// Declare the specifications of the AddToPizzaCollection action
-// This action is used to add a pizza to our pizzacollection
-export class AddToCart implements Action {
-    readonly type = ActionTypes.AddToCart;
+// This action is used to add a pizza to our cart
+// TODO 1
 
-    constructor(public payload: PizzaItem) { }
-}
+// This action is used to remove a pizza from our cart
+// TODO 1a
 
-// Declare the specifications of the RemoveFromPizzaCollection action
-// This action is used to remove a pizza from our pizzacollection
-export class RemoveFromCart implements Action {
-    readonly type = ActionTypes.RemoveFromCart;
+// This action is used to increase the amount of an item in our cart
+// TODO  1b
 
-    constructor(public payload: PizzaItem) { }
-}
+// This action is used to decrease the amount of an item in our cart
+// TODO 1b
 
-// Declare the specifications of the RemoveFromPizzaCollection action
-// This action is used to remove a pizza from our pizzacollection
-export class IncreaseCartAmount implements Action {
-    readonly type = ActionTypes.IncreaseCartAmount;
-
-    constructor(public payload: PizzaCartItem) { }
-}
-
-// Declare the specifications of the RemoveFromPizzaCollection action
-// This action is used to remove a pizza from our pizzacollection
-export class DecreaseCartAmount implements Action {
-    readonly type = ActionTypes.DecreaseCartAmount;
-
-    constructor(public payload: PizzaCartItem) { }
-}
-
-export type Actions = AddToCart | RemoveFromCart | IncreaseCartAmount | DecreaseCartAmount;
+export type Actions = any;

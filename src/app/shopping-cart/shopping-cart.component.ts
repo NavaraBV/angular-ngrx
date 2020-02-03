@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { PizzaCartItem } from '../store/models/pizzacart.model';
-import { IncreaseCartAmount, DecreaseCartAmount, RemoveFromCart } from '../store/actions/pizzacart.actions';
-import { selectCartTotalPrice } from '../store/selectors/pizzaCart.selectors';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -28,19 +26,23 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit() {
   }
 
+  onRemove(cartItem: PizzaCartItem) {
+    // TODO 1a
+    return;
+  }
+
   onIncrease(cartItem: PizzaCartItem) {
-    this.store.dispatch(new IncreaseCartAmount(cartItem));
+    // TODO 1b
+    return;
   }
 
   onDecrease(cartItem: PizzaCartItem) {
-    this.store.dispatch(new DecreaseCartAmount(cartItem));
-  }
-
-  onRemove(cartItem: PizzaCartItem) {
-    this.store.dispatch(new RemoveFromCart(cartItem.pizzaItem));
+    // TODO 1b
+    return;
   }
 
   get cartTotal() {
-    return this.store.select(selectCartTotalPrice);
+    // TODO 3a
+    return 0;
   }
 }
