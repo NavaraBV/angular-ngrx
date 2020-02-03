@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import * as PizzaActions from '../actions/pizza.actions';
 import { map, withLatestFrom, switchMap, mergeMap, catchError } from 'rxjs/operators';
@@ -27,7 +27,7 @@ export class PizzaEffects {
             this.pizzaService.getAllFiltered(1, limit * page, filter).pipe(
                 map(data => {
                     // Return the filter success action type
-                    return { type: PizzaActions.ActionTypes.FilterSuccess, payload: { filter: filter, data: data } };
+                    return { type: PizzaActions.ActionTypes.FilterSuccess, payload: { filter, data } };
                 }),
                 catchError(() => EMPTY)
             )
