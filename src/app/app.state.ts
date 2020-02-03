@@ -1,15 +1,20 @@
-import { PizzaItem } from './store/models/pizzas.model'
-import { FormGroupState } from 'ngrx-forms';
+import { PizzaItem } from './store/models/pizzas.model';
+import { PizzaCartItem } from './store/models/pizzacart.model';
 
 // Specifies our state
 export interface AppState {
-    pizzaModel: PizzaModelState,
+    pizzaModel: PizzaModelState;
+    pizzaCart: PizzaCartState;
 }
 
 export interface PizzaModelState {
-    pizzalist: PizzaItem[],
-    pizzacollection: PizzaItem[],
-    likedpizzas: PizzaItem[],
-    isLoading: boolean,
-    activeFilter?: string
+    pizzalist: PizzaItem[];
+    pizzacollection: PizzaItem[];
+    likedpizzas: PizzaItem[];
+    isLoading: boolean;
+    activeFilter?: string;
+}
+
+export interface PizzaCartState {
+    cartItems: PizzaCartItem[];
 }

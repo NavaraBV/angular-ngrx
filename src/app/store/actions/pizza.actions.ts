@@ -6,29 +6,11 @@ import { PizzaModelState } from 'src/app/app.state';
 // Conventionally formatted like: '[SUBJECT(S)] <action taken>'
 // NOTE: values declared here MUST be unique!
 export enum ActionTypes {
-    AddToCollection = '[PIZZA] Pizza added to collection',
-    RemoveFromCollection = '[PIZZA] Pizza removed from collection',
     AddLike = '[PIZZA] Added like',
     UpdateLikeSucess = '[PIZZA] Updated likes on server',
     RemoveLike = '[PIZZA] Removed like',
     Filter = '[PIZZAS] Filter pizzas',
     FilterSuccess = '[PIZZAS] Filter success'
-}
-
-// Declare the specifications of the AddToPizzaCollection action
-// This action is used to add a pizza to our pizzacollection
-export class AddToPizzaCollection implements Action {
-    readonly type = ActionTypes.AddToCollection;
-
-    constructor(public payload: PizzaItem) { }
-}
-
-// Declare the specifications of the RemoveFromPizzaCollection action
-// This action is used to remove a pizza from our pizzacollection
-export class RemoveFromPizzaCollection implements Action {
-    readonly type = ActionTypes.RemoveFromCollection;
-
-    constructor(public payload: PizzaItem) { }
 }
 
 // Declare the specifications of the AddLike action
@@ -72,4 +54,4 @@ export class FilterSuccess implements Action {
     constructor(public payload: { filter: string, data: PizzaItem[] }) { }
 }
 
-export type Actions = AddToPizzaCollection | RemoveFromPizzaCollection | AddLike | UpdateLikeSuccess | RemoveLike | FilterPizzas | FilterSuccess;
+export type Actions = AddLike | UpdateLikeSuccess | RemoveLike | FilterPizzas | FilterSuccess;

@@ -4,7 +4,10 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { FormGroup } from '@angular/forms';
 import { FilterPizzas } from '../store/actions/pizza.actions';
-import { selectTotalPizzaLikes, selectPizzaCount, selectPizzacollectionCount } from '../store/selectors/pizzaModel.selectors';
+import {
+  selectTotalPizzaLikes, selectPizzaCount,
+  selectPizzacollectionCount, selectIsLoading
+} from '../store/selectors/pizzaModel.selectors';
 
 @Component({
   selector: 'app-finder',
@@ -21,7 +24,6 @@ export class FinderComponent implements OnInit {
   limit = 20;
   pizzaList: PizzaItem[];
   activeFilter: string;
-  isLoading: boolean;
 
   filterform: FormGroup;
 
@@ -35,7 +37,6 @@ export class FinderComponent implements OnInit {
         // Get the filtered pizzalist from the state
         this.pizzaList = data.pizzalist;
         this.activeFilter = data.activeFilter;
-        this.isLoading = data.isLoading;
       });
   }
 
@@ -62,7 +63,7 @@ export class FinderComponent implements OnInit {
   // Filter the results
   onFilterChange(filter) {
     // Change our state with the new filter
-    this.store.dispatch(new FilterPizzas({ page: this.page, limit: this.limit, filter: filter }));
+    this.store.dispatch(new FilterPizzas({ page: this.page, limit: this.limit, filter }));
   }
 
   get totalLikes() {
@@ -75,6 +76,10 @@ export class FinderComponent implements OnInit {
 
   get totalCollection() {
     return this.store.select(selectPizzacollectionCount);
+  }
+
+  get isLoading() {
+    return this.store.select(selectIsLoading);
   }
 
   get canLoadMore(): boolean {

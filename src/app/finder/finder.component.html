@@ -18,5 +18,11 @@
         <app-pizzalist [pizzaList]="pizzaList"></app-pizzalist>
     </section>
 
-    <button mat-raised-button class="my-4" (click)="loadMore()" [disabled]="!canLoadMore">Load More</button>
+    <div *ngIf="isLoading | async; else ready">
+        <mat-spinner class="mx-auto"></mat-spinner>
+    </div>
+    <ng-template #ready>
+        <button mat-raised-button class="my-4" (click)="loadMore()" [disabled]="!canLoadMore">Load More</button>
+    </ng-template>
+
 </div>

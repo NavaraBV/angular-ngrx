@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PizzaItem } from '../../store/models/pizzas.model';
-import { AddToPizzaCollection, RemoveFromPizzaCollection, AddLike, RemoveLike } from '../../store/actions/pizza.actions';
+import { AddLike, RemoveLike } from '../../store/actions/pizza.actions';
+import { AddToCart, RemoveFromCart} from '../../store/actions/pizzacart.actions';
 import { AppState } from '../../app.state';
 import { Store, select } from '@ngrx/store';
+import { PizzaCartItem } from 'src/app/store/models/pizzacart.model';
 
 @Component({
   selector: 'app-pizzalist',
@@ -12,7 +14,7 @@ import { Store, select } from '@ngrx/store';
 export class PizzaListComponent implements OnInit {
 
   @Input() pizzaList: PizzaItem[] = [];
-  pizzaCollection: PizzaItem[] = [];
+  pizzaCart: PizzaCartItem[] = [];
   likedPizzas: PizzaItem[] = [];
 
   constructor(
@@ -22,41 +24,47 @@ export class PizzaListComponent implements OnInit {
       // Subscribe to updates of the state
       select('pizzaModel')).subscribe(data => {
         // Get the pizzacollection from the state
-        this.pizzaCollection = data.pizzacollection;
         this.likedPizzas = data.likedpizzas;
       });
+
+    store.pipe(
+        // Subscribe to updates of the state
+        select('pizzaCart')).subscribe(data => {
+          // Get the pizzacollection from the state
+          this.pizzaCart = data.cartItems;
+        });
   }
 
   ngOnInit() {
   }
 
   onAdd(pizza) {
-    // Add the pizza to the pizzacollection in our state 
-    this.store.dispatch(new AddToPizzaCollection(pizza));
+    // Add the pizza to the cart in our state
+    this.store.dispatch(new AddToCart(pizza));
   }
 
   onRemove(pizza) {
-    // Remove the pizza from the pizzacollection in our state 
-    this.store.dispatch(new RemoveFromPizzaCollection(pizza));
+    // Remove the pizza from the cart in our state
+    this.store.dispatch(new RemoveFromCart(pizza));
   }
 
-  isInCollection(pizza: PizzaItem) {
-    // Check if the pizza exists in our pizzacollection
-    return this.pizzaCollection.find(p => p.id == pizza.id);
+  isInCart(pizza: PizzaItem) {
+    // Check if the pizza exists in our pizza cart
+    return this.pizzaCart.find(p => p.pizzaItem.id === pizza.id);
   }
 
   onLike(pizza) {
-    // Add the pizza to the likedpizzas in our state 
+    // Add the pizza to the likedpizzas in our state
     this.store.dispatch(new AddLike(pizza));
   }
 
   onRemovelike(pizza) {
-    // Remove the pizza from the likedpizzas in our state 
+    // Remove the pizza from the likedpizzas in our state
     this.store.dispatch(new RemoveLike(pizza));
   }
 
   hasLiked(pizza: PizzaItem) {
     // Check if the pizza exists in our likedpizzas
-    return this.likedPizzas.find(p => p.id == pizza.id);
+    return this.likedPizzas.find(p => p.id === pizza.id);
   }
 }
