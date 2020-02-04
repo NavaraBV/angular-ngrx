@@ -67,12 +67,12 @@ export class FinderComponent implements OnInit {
 
   get totalLikes() {
     // Select total likes from store
-    return 0;
+    return this.store.select(selectTotalPizzaLikes);
   }
 
   get totalPizzas() {
     // Select total pizza count from store
-    return 0;
+    return this.store.select(selectPizzaCount);
   }
 
   get isLoading() {
